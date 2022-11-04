@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Example call:
-#   bash scripts/run_preprocessing.sh
+#   bash scripts/bpe_preprocess.sh
 
 set -e
 
@@ -21,8 +21,14 @@ echo $prepared
 # Learn byte pair encoding on the concatenation of the tokenization on normalized, truecased and word level tokenized training text, and get resulting vocabulary for each
 subword-nmt learn-joint-bpe-and-vocab --input $preprocessed/vocab.$src_lang $preprocessed/train.$tgt_lang -o $preprocessed/bpe_output --write-vocabulary $preprocessed/vocab.$src_lang $preprocessed/vocab.$tgt_lang
 
+for split in train tiny_train
+	do
+		# re-apply byte pair encoding with vocabulary filter
+		subword-nmt apply-bpe -c $preprocessed/bpe_output --vocabulary $preprocessed/vocab.$src_lang --vocabulary-threshold 1 < $preprocessed/$split.$src_lang > $preprocessed/$split.BPE.$src_lang --dropout 0.1 --seed 42
+		subword-nmt apply-bpe -c $preprocessed/bpe_output --vocabulary $preprocessed/vocab.$tgt_lang --vocabulary-threshold 1 < $preprocessed/$split.$tgt_lang > $preprocessed/$split.BPE.$tgt_lang --dropout 0.1 --seed 42
+	done
 
-for split in train tiny_train test valid
+for split in test valid
 	do
 		# re-apply byte pair encoding with vocabulary filter
 		subword-nmt apply-bpe -c $preprocessed/bpe_output --vocabulary $preprocessed/vocab.$src_lang --vocabulary-threshold 1 < $preprocessed/$split.$src_lang > $preprocessed/$split.BPE.$src_lang
