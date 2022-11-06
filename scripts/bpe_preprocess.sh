@@ -24,8 +24,8 @@ subword-nmt learn-joint-bpe-and-vocab --input $preprocessed/vocab.$src_lang $pre
 for split in train tiny_train
 	do
 		# re-apply byte pair encoding with vocabulary filter
-		subword-nmt apply-bpe -c $preprocessed/bpe_output --vocabulary $preprocessed/vocab.$src_lang --vocabulary-threshold 1 < $preprocessed/$split.$src_lang > $preprocessed/$split.BPE.$src_lang --dropout 0.1 --seed 42
-		subword-nmt apply-bpe -c $preprocessed/bpe_output --vocabulary $preprocessed/vocab.$tgt_lang --vocabulary-threshold 1 < $preprocessed/$split.$tgt_lang > $preprocessed/$split.BPE.$tgt_lang --dropout 0.1 --seed 42
+		subword-nmt apply-bpe -c $preprocessed/bpe_output --vocabulary $preprocessed/vocab.$src_lang --vocabulary-threshold 1 < $preprocessed/$split.$src_lang > $preprocessed/$split.BPE.$src_lang 
+		subword-nmt apply-bpe -c $preprocessed/bpe_output --vocabulary $preprocessed/vocab.$tgt_lang --vocabulary-threshold 1 < $preprocessed/$split.$tgt_lang > $preprocessed/$split.BPE.$tgt_lang 
 	done
 
 for split in test valid
