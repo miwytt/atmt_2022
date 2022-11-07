@@ -9,8 +9,8 @@
 scripts=`dirname "$(readlink -f "$0")"`
 base=$scripts/..
 
-infile=$base/assignments/03/new_model/translations.txt
-outfile=$base/assignments/03/new_model/translations_wo_bpe.txt
+infile=$base/assignments/03/new_model_2/translations.txt
+outfile=$base/assignments/03/new_model_2/translations_wo_bpe.txt
 lang=en
 
 
