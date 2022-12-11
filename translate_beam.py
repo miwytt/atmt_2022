@@ -95,9 +95,7 @@ def main(args):
             decoder_out, _ = model.decoder(go_slice, encoder_out)
 
             # __QUESTION 2: Why do we keep one top candidate more than the beam size?
-            ut_yt = -torch.log(torch.softmax(decoder_out[:-1], dim=2))
-            reg = sum(torch.pow(ut_yt, 2))
-            log_probs, next_candidates = torch.topk(torch.log(torch.softmax(decoder_out, dim=2) - reg),
+            log_probs, next_candidates = torch.topk(torch.log(torch.softmax(decoder_out, dim=2)),
                                                     args.beam_size+1, dim=-1)
 
         # Create number of beam_size beam search nodes for every input sentence
