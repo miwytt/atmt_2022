@@ -150,7 +150,7 @@ def main(args):
                 decoder_out, _ = model.decoder(prev_words, encoder_out)
 
             # see __QUESTION 2
-            ut_yt = -torch.log(torch.softmax(prev_words))
+            ut_yt = -torch.log(torch.softmax(prev_words, dim=1))
             reg = args.lmbda*(sum(torch.pow(ut_yt, 2)))
             log_probs, next_candidates = torch.topk(torch.log(torch.softmax(decoder_out, dim=2))-reg, args.beam_size+1, dim=-1)
 
