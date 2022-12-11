@@ -32,7 +32,9 @@ def get_args():
     parser.add_argument('--beam-size', default=5, type=int, help='number of hypotheses expanded in beam search')
     # alpha hyperparameter for length normalization (described as lp in https://arxiv.org/pdf/1609.08144.pdf equation 14)
     parser.add_argument('--alpha', default=0.0, type=float, help='alpha for softer length normalization')
-
+    # lambda for squared regularizer
+    parser.add_argument('--lambda', default=0.5, type=float, help='lambda for regularization strength')
+    
     return parser.parse_args()
 
 
