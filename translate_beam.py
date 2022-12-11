@@ -96,7 +96,7 @@ def main(args):
 
             # __QUESTION 2: Why do we keep one top candidate more than the beam size?
             ut_yt = -torch.log(torch.softmax(decoder_out[:-1], dim=2))
-            reg = args.lambda*sum(torch.pow(ut_yt, 2))
+            reg = args.lmbda*sum(torch.pow(ut_yt, 2))
             log_probs, next_candidates = torch.topk(torch.log(torch.softmax(decoder_out, dim=2)-reg),
                                                     args.beam_size+1, dim=-1)
 
@@ -153,7 +153,7 @@ def main(args):
 
             # see __QUESTION 2
             ut_yt = -torch.log(torch.softmax(decoder_out[:-1], dim=2))
-            reg = args.lambda*sum(torch.pow(ut_yt, 2))
+            reg = args.lmbda*sum(torch.pow(ut_yt, 2))
             log_probs, next_candidates = torch.topk(torch.log(torch.softmax(decoder_out, dim=2) - reg), args.beam_size+1, dim=-1)
 
             # Create number of beam_size next nodes for every current node
