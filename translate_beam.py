@@ -33,7 +33,7 @@ def get_args():
     # alpha hyperparameter for length normalization (described as lp in https://arxiv.org/pdf/1609.08144.pdf equation 14)
     parser.add_argument('--alpha', default=0.0, type=float, help='alpha for softer length normalization')
     # lambda for squared regularizer
-    parser.add_argument('--lambda', default=0.5, type=float, help='lambda for regularization strength')
+    parser.add_argument('--lambda', default=0.0, type=float, help='lambda for regularization strength')
     
     return parser.parse_args()
 
