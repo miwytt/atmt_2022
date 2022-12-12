@@ -217,7 +217,7 @@ def main(args):
         output_sentences = temp
 
         # Convert arrays of indices into strings of words
-        #output_sentences = [tgt_dict.string(sent) for sent in output_sentences]
+        output_sentences = [tgt_dict.string(sent) for sent in output_sentences]
         
         ###############################
         n_output_sentences = []
