@@ -221,7 +221,7 @@ def main(args):
         
         ###############################
         output_sentences = []
-        for j in range(0, len(_output_sentences), args.n_best_size):
+        for j in range(0, len(temp), args.n_best_size):
             output_sentences.append("<#>".join(_output_sentences[j:j + args.n_best_size]))
         ###############################
             
