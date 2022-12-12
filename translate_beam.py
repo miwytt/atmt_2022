@@ -107,8 +107,8 @@ def main(args):
             for j in range(args.beam_size):
                 best_candidate = next_candidates[i, :, j]
                 backoff_candidate = next_candidates[i, :, j+1]
-                best_log_p = log_probs[i, :, j]-args.gamma*1 ###
-                backoff_log_p = log_probs[i, :, j+1]-args.gamma*2 ###
+                best_log_p = log_probs[i, :, j]-args.gamma*1 ### adjusted for diversity
+                backoff_log_p = log_probs[i, :, j+1]-args.gamma*2 ### adjusted for diversity
                 next_word = torch.where(best_candidate == tgt_dict.unk_idx, backoff_candidate, best_candidate)
                 log_p = torch.where(best_candidate == tgt_dict.unk_idx, backoff_log_p, best_log_p)
                 log_p = log_p[-1]
@@ -201,7 +201,7 @@ def main(args):
                 search.prune()
 
         # Segment into sentences
-        #best_sents = torch.stack([search.get_best(args.n)[1].sequence[1:].cpu() for search in searches])
+        # for n best
         best_sents = torch.stack([tup[1].sequence[1:].cpu() for search in searches for tup in search.get_best(args.n)])
         decoded_batch = best_sents.numpy()
         #import pdb;pdb.set_trace()
@@ -221,7 +221,8 @@ def main(args):
         # Convert arrays of indices into strings of words
         output_sentences = [tgt_dict.string(sent) for sent in output_sentences]
         
-        ###############################
+        # for n best
+        ############################### 
         n_output_sentences = []
         for j in range(0, len(temp), args.n):
             n_output_sentences.append("<#>".join(output_sentences[j:j + args.n]))
