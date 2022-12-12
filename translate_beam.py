@@ -35,7 +35,7 @@ def get_args():
     # lambda for squared regularizer
     parser.add_argument('--lmbda', default=0.0, type=float, help='lambda for regularization strength')
     # lambda for squared regularizer
-    parser.add_argument('--n', default=1, type=float, help='n best sentences')
+    parser.add_argument('--n', default=1, type=int, help='n best sentences')
     
     return parser.parse_args()
 
