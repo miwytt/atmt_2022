@@ -34,6 +34,8 @@ def get_args():
     parser.add_argument('--alpha', default=0.0, type=float, help='alpha for softer length normalization')
     # lambda for squared regularizer
     parser.add_argument('--lmbda', default=0.0, type=float, help='lambda for regularization strength')
+    # lambda for squared regularizer
+    parser.add_argument('--n', default=1, type=float, help='n best sentences')
     
     return parser.parse_args()
 
@@ -197,7 +199,7 @@ def main(args):
                 search.prune()
 
         # Segment into sentences
-        best_sents = torch.stack([search.get_best()[1].sequence[1:].cpu() for search in searches])
+        best_sents = torch.stack([search.get_best()[n].sequence[1:].cpu() for search in searches])
         decoded_batch = best_sents.numpy()
         #import pdb;pdb.set_trace()
 
