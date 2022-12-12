@@ -86,8 +86,8 @@ class BeamSearchNode(object):
         self.mask = mask
 
         # Attributes needed for computation of sequence score
-        self.rank = rank ### 
-        self.gamma = gamma ###
+        #self.rank = rank ### 
+        #self.gamma = gamma ###
         self.logp = logProb#-rank*gamma ###
         self.length = length
         
