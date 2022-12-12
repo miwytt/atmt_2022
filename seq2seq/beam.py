@@ -51,6 +51,7 @@ class BeamSearch(object):
             node = self.nodes.get()
             merged.put(node)
         
+        # for n best list
         ###############################
         for _ in range(n):
             node = merged.get()
@@ -73,7 +74,6 @@ class BeamSearch(object):
 
 class BeamSearchNode(object):
     """ Defines a search node and stores values important for computation of beam search path"""
-    #def __init__(self, search, emb, lstm_out, final_hidden, final_cell, mask, sequence, logProb, length, rank, gamma):
     def __init__(self, search, emb, lstm_out, final_hidden, final_cell, mask, sequence, logProb, length):
 
 
@@ -86,9 +86,7 @@ class BeamSearchNode(object):
         self.mask = mask
 
         # Attributes needed for computation of sequence score
-        #self.rank = rank ### 
-        #self.gamma = gamma ###
-        self.logp = logProb#-rank*gamma ###
+        self.logp = logProb
         self.length = length
         
         self.search = search
