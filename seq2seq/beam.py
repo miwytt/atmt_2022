@@ -73,7 +73,9 @@ class BeamSearch(object):
 
 class BeamSearchNode(object):
     """ Defines a search node and stores values important for computation of beam search path"""
-    def __init__(self, search, emb, lstm_out, final_hidden, final_cell, mask, sequence, logProb, length, rank, gamma):
+    #def __init__(self, search, emb, lstm_out, final_hidden, final_cell, mask, sequence, logProb, length, rank, gamma):
+    def __init__(self, search, emb, lstm_out, final_hidden, final_cell, mask, sequence, logProb, length):
+
 
         # Attributes needed for computation of decoder states
         self.sequence = sequence
@@ -86,7 +88,7 @@ class BeamSearchNode(object):
         # Attributes needed for computation of sequence score
         self.rank = rank ### 
         self.gamma = gamma ###
-        self.logp = logProb-rank*gamma ###
+        self.logp = logProb#-rank*gamma ###
         self.length = length
         
         self.search = search
