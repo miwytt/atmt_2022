@@ -34,8 +34,10 @@ def get_args():
     parser.add_argument('--alpha', default=0.0, type=float, help='alpha for softer length normalization')
     # lambda for squared regularizer
     parser.add_argument('--lmbda', default=0.0, type=float, help='lambda for regularization strength')
-    # lambda for squared regularizer
+    # n for n best list
     parser.add_argument('--n', default=1, type=int, help='n best sentences')
+    # gamma for diversity
+    parser.add_argument('--gamma', default=0.0, type=float, help='gamma for diversity')
     
     return parser.parse_args()
 
@@ -105,8 +107,8 @@ def main(args):
             for j in range(args.beam_size):
                 best_candidate = next_candidates[i, :, j]
                 backoff_candidate = next_candidates[i, :, j+1]
-                best_log_p = log_probs[i, :, j]
-                backoff_log_p = log_probs[i, :, j+1]
+                best_log_p = log_probs[i, :, j]-args.gamma*1 ###
+                backoff_log_p = log_probs[i, :, j+1]-args.gamma*2 ###
                 next_word = torch.where(best_candidate == tgt_dict.unk_idx, backoff_candidate, best_candidate)
                 log_p = torch.where(best_candidate == tgt_dict.unk_idx, backoff_log_p, best_log_p)
                 log_p = log_p[-1]
