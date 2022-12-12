@@ -217,8 +217,14 @@ def main(args):
         output_sentences = temp
 
         # Convert arrays of indices into strings of words
-        output_sentences = [tgt_dict.string(sent) for sent in output_sentences]
-
+        #output_sentences = [tgt_dict.string(sent) for sent in output_sentences]
+        
+        ###############################
+        output_sentences = []
+        for j in range(0, len(_output_sentences), args.n_best_size):
+            output_sentences.append("<#>".join(_output_sentences[j:j + args.n_best_size]))
+        ###############################
+            
         for ii, sent in enumerate(output_sentences):
             all_hyps[int(sample['id'].data[ii])] = sent
 
