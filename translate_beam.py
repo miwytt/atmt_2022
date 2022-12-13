@@ -69,6 +69,8 @@ def main(args):
                                               batch_sampler=BatchSampler(test_dataset, 9999999,
                                                                          args.batch_size, 1, 0, shuffle=False,
                                                                          seed=args.seed))
+    square_reg = args.square_regularize
+                                                                         
     # Build model and criterion
     model = models.build_model(args, src_dict, tgt_dict)
     if args.cuda:
